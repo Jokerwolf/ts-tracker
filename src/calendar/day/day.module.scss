@@ -1,0 +1,31 @@
+.day,
+.empty-day {
+  cursor: pointer;
+  width: 13.2857143%;
+  height: 25px;
+  line-height: 25px;
+  margin: 0 1px;
+}
+
+.empty-day {
+    background-color: #f3f1f1fa;
+}
+
+.day {
+  &:hover {
+    background: #f3f1f1fa;
+  }
+
+  &.legs {
+    background-color: lightblue;
+  }
+  &.chest {
+    background-color: lightgreen;
+  }
+  &.arms {
+    background-color: pink;
+  }
+  &.back {
+    background-color: salmon;
+  }
+}

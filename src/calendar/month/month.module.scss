@@ -1,0 +1,30 @@
+.month {
+  display: flex;
+  flex-direction: column;
+
+  width: 30%;
+  min-width: 170px;
+  margin: 5px;
+
+  .name {
+    height: 25px;
+    line-height: 25px;
+    border-bottom: #f3f1f1fa solid 1px;
+  }
+
+  .days,
+  .days-of-week {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .days-of-week {
+    .day-of-week {
+      width: 14.2857143%;
+      height: 25px;
+      line-height: 25px;
+      font-size: 0.75em;
+      color: #dcdcdcfa;
+    }
+  }
+}

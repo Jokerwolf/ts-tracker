@@ -12,7 +12,8 @@ const App = () => {
   const goBack = () => setYear(year - 1);
   const goForward = () => setYear(year + 1);
   
-  return <Router>
+  return (
+  <Router>
     <main>
       <Route
         path="/"
@@ -63,14 +64,15 @@ const App = () => {
                 </div>
               </div>
             </header>
-            <div className="body">
-              <Calendar year={year} months={[0, 1, 2, 3, 4, 5]} />
-            </div>
+            <main className="body">
+              <Calendar year={year} />
+            </main>
           </div>
         )}
       />
     </main>
-  </Router>;
+  </Router>
+  );
 };
 
 export default App;

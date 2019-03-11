@@ -1,33 +1,34 @@
 import React from 'react';
-import { cond, complement } from 'ramda';
+import { cond, complement, isNil, tap, compose } from 'ramda';
 import { format } from 'date-fns';
 
-import './day.scss';
+import styles from './day.module.scss';
 
 type Props = {
   date: Date
 };
 
-const types = ['legs', 'arms', 'chest', 'back'];
-
-function getClass(tags?: Array<any>, emptyDay?: boolean) {
+function getClass(emptyDay?: boolean, tags?: Array<any>) {
   return (tags || [])
-    .map(tag => types[tag.type])
+    .map(tag => styles[tag.type])
     .filter(x => x)
-    .concat(emptyDay ? ['empty-day'] : ['day'])
+    .concat(emptyDay ? [styles['empty-day']] : styles['day'])
     .join(' ');
 }
 
+const emptyDay: (x: Date) => boolean = isNil;
+
+const dayClick = (e: any) => { console.log(e); };
+
 const Day = (props: Props) => {
   const { date } = props;
-  const emptyDay = (date?: Date) => date === undefined || date === null;
 
   return cond([
-    [emptyDay, () => <div className={getClass()} />],
+    [emptyDay, () => <div className={getClass(true)} />],
     [
       complement(emptyDay),
       () => (
-        <div className={getClass()}>
+        <div className={getClass()} onClick={dayClick}>
           {format(date, 'DD')}
         </div>
       ),
