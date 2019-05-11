@@ -1,3 +1,5 @@
+[![Build status](https://dev.azure.com/janegordinadev/workouts-tracker/_apis/build/status/workouts-tracker%20build)](https://dev.azure.com/janegordinadev/workouts-tracker/_build/latest?definitionId=2)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
