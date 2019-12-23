@@ -1,22 +1,7 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer } from 'apollo-server';
 import { ActivityType } from './types/ActivityType';
+import { typeDefs } from './schema.graphql';
 // import { TrackerApp } from './types/server';
-
-const typeDefs = gql`
-enum ActivityType {
-  WORKOUT,
-  OTHER
-}
-
-type Activity {
-  type: ActivityType,
-  date: String
-}
-
-type Query {
-  activities: [Activity]
-}
-`;
 
 const data: Array<TrackerApp.Activity> = [
   {
