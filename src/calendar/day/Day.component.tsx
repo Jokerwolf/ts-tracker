@@ -1,5 +1,5 @@
 import React from 'react';
-import { cond, complement, isNil, tap, compose } from 'ramda';
+import { cond, complement, isNil } from 'ramda';
 import { format } from 'date-fns';
 
 import styles from './day.module.scss';
@@ -23,7 +23,7 @@ const dayClick = (e: any) => { console.log(e); };
 const Day = (props: Props) => {
   const { date } = props;
 
-  return cond([
+  return cond<Date, JSX.Element>([
     [emptyDay, () => <div className={getClass(true)} />],
     [
       complement(emptyDay),
