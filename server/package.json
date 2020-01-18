@@ -5,21 +5,33 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/index.js",
+    "start": "node ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/express-session": "^1.15.16",
+    "@types/method-override": "0.0.31",
+    "@types/morgan": "^1.7.37",
     "@types/node": "^12.12.7",
-    "apollo-server": "^2.9.7",
-    "graphql": "^14.5.8"
+    "@types/passport": "^1.0.2",
+    "apollo-server-express": "^2.9.16",
+    "cookie-parser": "^1.4.4",
+    "express-session": "^1.17.0",
+    "graphql": "^14.5.8",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.1",
+    "passport-foursquare": "^1.0.0"
   },
   "devDependencies": {
     "graphql-tag": "^2.10.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.2",
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

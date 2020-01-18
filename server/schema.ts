@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server';
+import { gql } from 'apollo-server-express';
 
-export const gql`
+const schema = gql`
 enum ActivityType {
   WORKOUT,
   OTHER
@@ -15,3 +15,5 @@ type Query {
   activities: [Activity]
 }
 `;
+
+export default schema;
