@@ -1,10 +1,11 @@
 .day,
 .empty-day {
   cursor: pointer;
-  width: 13.2857143%;
-  height: 25px;
+  width: 13.55%;
+  height: 75px;
   line-height: 25px;
   margin: 0 1px;
+  border: 1px solid lightgrey;
 }
 
 .empty-day {
@@ -16,16 +17,19 @@
     background: #f3f1f1fa;
   }
 
-  &.legs {
+  &.yellow {
+    background-color: lightyellow;
+  }
+  &.blue {
     background-color: lightblue;
   }
-  &.chest {
+  &.green {
     background-color: lightgreen;
   }
-  &.arms {
-    background-color: pink;
+  &.red {
+    background-color: rgb(230, 106, 106);
   }
-  &.back {
-    background-color: salmon;
+  &.workout {
+    border: 1px solid black;
   }
 }

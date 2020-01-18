@@ -1,34 +1,38 @@
-import React from 'react';
-import { cond, complement, isNil, tap, compose } from 'ramda';
+import React, { useState } from 'react';
+import { cond, complement, isNil } from 'ramda';
 import { format } from 'date-fns';
 
 import styles from './day.module.scss';
 
+export type CustomDay = Date; 
+
+type DayType = 'none' | 'red' | 'yellow' | 'green' | 'workout';
+
 type Props = {
-  date: Date
+  date: CustomDay
+  inPeriod: boolean;
+  dayType: any;
 };
 
-function getClass(emptyDay?: boolean, tags?: Array<any>) {
-  return (tags || [])
-    .map(tag => styles[tag.type])
+const getClass = (types?: Array<DayType>) => 
+  (types || [])
+    .map(type => styles[type])
     .filter(x => x)
-    .concat(emptyDay ? [styles['empty-day']] : styles['day'])
     .join(' ');
-}
-
-const emptyDay: (x: Date) => boolean = isNil;
-
-const dayClick = (e: any) => { console.log(e); };
 
 const Day = (props: Props) => {
-  const { date } = props;
+  const dayClick = console.log;
+  const { date, inPeriod, dayType } = props;
+  
+  console.log(date, inPeriod, dayType);
 
   return cond([
-    [emptyDay, () => <div className={getClass(true)} />],
+    [isNil, (_) => <div className={styles['empty-day']} />],
     [
-      complement(emptyDay),
-      () => (
-        <div className={getClass()} onClick={dayClick}>
+      complement(isNil),
+      (date) => (
+        <div className={`${styles['day']} ${getClass([dayType])}`} onClick={dayClick}>
+          <span className="indicator"></span>
           {format(date, 'DD')}
         </div>
       ),

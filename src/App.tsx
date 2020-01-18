@@ -14,7 +14,6 @@ const App = () => {
   
   return (
   <Router>
-    <main>
       <Route
         path="/"
         exact
@@ -70,7 +69,6 @@ const App = () => {
           </div>
         )}
       />
-    </main>
   </Router>
   );
 };
