@@ -1,7 +1,10 @@
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: './index.ts',
+  mode: 'development',
+  target: 'node',
   module: {
     rules: [
       {
@@ -14,13 +17,19 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'graphql-tag/loader',
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto",
+      },
     ],
   },
   resolve: {
     extensions: [ '.ts', '.js' ],
   },
+  externals: nodeExternals(),
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, '../build_srv'),
+    filename: 'index.js',
+    path: path.resolve(__dirname, './build'),
   },
 };

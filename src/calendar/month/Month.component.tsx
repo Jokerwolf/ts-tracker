@@ -1,6 +1,6 @@
 import React from 'react';
-import { head, last, cond, isEmpty, complement } from 'ramda';
-import { startOfWeek, endOfWeek, eachDay, format } from 'date-fns';
+import { compose, head, filter, last, cond, isEmpty, complement, tap } from 'ramda';
+import { startOfWeek, endOfWeek, eachDay, format, isSameDay } from 'date-fns';
 
 import Day from '../day/Day.component';
 
@@ -9,6 +9,7 @@ import styles from './month.module.scss';
 type Props = {
   name: string;
   days: Array<Date>;
+  activities: Array<any>;
 };
 
 const now = new Date();
@@ -32,9 +33,16 @@ const postfixDays = (days: Array<Date>) =>
     ],
   ])(days);
 
+const getActivity = (date: Date) => compose(
+  tap(x => console.log('>>>>', x)) as any,
+  head as any,
+  filter<any>(activity => isSameDay(date, new Date(activity.date)))
+);
+
 const Month = (props: Props) => {
-  const { days, name } = props;
+  const { days, name, activities } = props;
   const shiftedDays = [...prefixDays(days), ...days, ...postfixDays(days)];
+  
   return (
     <div className={styles.month}>
       <div className={styles.name}>{name}</div>
@@ -46,9 +54,14 @@ const Month = (props: Props) => {
         ))}
       </div>
       <div className={styles.days}>
-        {shiftedDays.map((date: Date, i: number) => (
-          <Day key={i} date={date} />
-        ))}
+        {
+          shiftedDays.map((date: Date, i: number) => {
+            const activity: any = getActivity(date)(activities)
+            return (
+              <Day key={i} date={date} activity={activity}/>
+            )
+          })
+        }
       </div>
     </div>
   );

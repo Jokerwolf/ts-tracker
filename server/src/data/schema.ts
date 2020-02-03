@@ -12,7 +12,7 @@ type Activity {
 }
 
 type Query {
-  activities: [Activity]
+  activities(year: Int!): [Activity]
 }
 `;
 

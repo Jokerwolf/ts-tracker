@@ -5,13 +5,17 @@ import { format } from 'date-fns';
 import styles from './day.module.scss';
 
 type Props = {
-  date: Date
+  date: Date;
+  activity: any;
 };
 
-function getClass(emptyDay?: boolean, tags?: Array<any>) {
-  return (tags || [])
-    .map(tag => styles[tag.type])
-    .filter(x => x)
+function getClass(emptyDay: boolean, activity?: any) {
+  // return (tags || [])
+  //   .map(tag => styles[tag.type])
+  //   .filter(x => x)
+  //   .concat(emptyDay ? [styles['empty-day']] : styles['day'])
+  //   .join(' ');
+  return (isNil(activity) ? [] : [styles['legs']])
     .concat(emptyDay ? [styles['empty-day']] : styles['day'])
     .join(' ');
 }
@@ -28,7 +32,7 @@ const Day = (props: Props) => {
     [
       complement(emptyDay),
       () => (
-        <div className={getClass()} onClick={dayClick}>
+        <div className={getClass(false, props.activity)} onClick={dayClick}>
           {format(date, 'DD')}
         </div>
       ),
