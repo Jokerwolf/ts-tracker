@@ -31,8 +31,7 @@ function(accessToken: String, refreshToken: String, profile: any, done: Function
     // to represent the logged-in user.  In a typical application, you would
     // want to associate the Foursquare account with a user record in your
     // database, and return that user instead.
-    console.log('>>>>', accessToken);
-    profile.accessToken = accessToken;
-    return done(null, profile);
+
+    return done(null, { accessToken, version: '20200402' });
   });
 }));

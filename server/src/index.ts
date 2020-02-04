@@ -9,10 +9,8 @@ import session from 'express-session';
 
 
 import './auth/passport';
-import apolloServerInit from './data/resolvers';
+import apolloServer from './data/resolvers';
 
-
-const DEBUG_ACCESS_TOKEN = { oauth_token: '4ZZN1Q35ZAEPCRID4MIIVG54XFZVRQ4NPE5NUH2SKMIQRQEM', v: '20200201' };
 
 const app = express();
 
@@ -23,7 +21,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(session({ 
   secret: 'keyboard cat',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
 }));
 app.use(express.static(path.join(__dirname, '../../build'), {
@@ -35,8 +33,6 @@ app.use(express.static(path.join(__dirname, '../../build'), {
 app.use(passport.initialize());
 app.use(passport.session());
 
-const apolloServer = apolloServerInit(DEBUG_ACCESS_TOKEN);
-
 apolloServer.applyMiddleware({ app, path: '/gql'});
 
 // Simple route middleware to ensure user is authenticated.
@@ -45,11 +41,10 @@ apolloServer.applyMiddleware({ app, path: '/gql'});
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
 function ensureAuthenticated(req: Request, res: Response , next: NextFunction) {
-  // if (req.isAuthenticated()) { 
-  //   return next(); 
-  // }
-  // res.redirect('/auth/foursquare');
-  return next();
+  if (req.isAuthenticated()) { 
+    return next(); 
+  }
+  res.redirect('/auth/foursquare');
 }
 
 // GET /auth/foursquare
@@ -69,7 +64,6 @@ app.get('/auth/foursquare',
 app.get('/auth/foursquare/callback', 
   passport.authenticate('foursquare', { failureRedirect: '/auth/foursquare' }),
   function(req, res, next: any) {
-    // next();
     res.redirect('/');
   });
 

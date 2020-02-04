@@ -10,12 +10,15 @@ const resolvers: any = {
   },
 };
 
-const apolloServer = (params: any) => new ApolloServer({ 
+const apolloServer = new ApolloServer({ 
   typeDefs, 
   resolvers, 
+  context: ({ req }) => {
+    return req.user;
+  },
   dataSources: () => {
     return {
-      userSelfAPI: new UserSelfAPI(params),
+      userSelfAPI: new UserSelfAPI(),
     };
   } 
 });

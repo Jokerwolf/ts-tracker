@@ -7,23 +7,17 @@ type Venue = { categories: Array<Category>; };
 type Category = { id: string; };
 
 class UserSelfAPI extends RESTDataSource {
-  private oauth_token: string;
-  private v: string;
-
-  constructor({ oauth_token, v }: { oauth_token: string, v: string }) {
+  constructor() {
     super();
     this.baseURL = 'https://api.foursquare.com/v2/users/self';
-    this.oauth_token = oauth_token;
-    this.v = v;
   }
 
   async getCheckins(year: number) {
-    const { oauth_token, v } = this;
     const [ afterTimestamp, beforeTimestamp ] = yearToRange(year);
     
     return this.get('/checkins', { 
-      oauth_token, 
-      v, 
+      oauth_token: this.context.accessToken, 
+      v: this.context.version, 
       afterTimestamp, 
       beforeTimestamp, 
       limit: 250, 
@@ -39,9 +33,7 @@ const isInSportVenue = (checkin: Checkin) => checkin.venue.categories.some(sport
 
 const mapData = compose(
   map<Checkin, any>(x => ({ type: ActivityType.Workout, date: x.createdAt })),
-  // project(['id', 'createdAt']),
   filter(isInSportVenue),
-  // tap<Array<Checkin>>(x => console.log(x)),
   path<Array<Checkin>>(['response', 'checkins', 'items'])
 );
 
